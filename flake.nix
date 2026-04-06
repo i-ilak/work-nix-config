@@ -6,6 +6,26 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     nix-modules = {
       url = "github:i-ilak/nix-modules";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +57,12 @@
       homeConfigurations = {
         mxw-dalco01 = import ./hosts/mxw-dalco01/home-manager.nix {
           inherit nixpkgs inputs;
+        };
+      };
+
+      darwinConfigurations = {
+        work = import ./hosts/work/nix-darwin.nix {
+          inherit inputs;
         };
       };
     };

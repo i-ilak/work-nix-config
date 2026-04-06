@@ -9,8 +9,11 @@ Work machine Nix configurations, separated from personal infrastructure. Uses st
 ## Commands
 
 ```bash
-# Apply configuration (home-manager switch)
+# Apply configuration (home-manager switch for Linux hosts)
 home-manager switch --flake .#mxw-dalco01
+
+# Apply configuration (darwin-rebuild for macOS hosts)
+darwin-rebuild switch --flake .#work
 
 # Lint Nix code
 nix run nixpkgs#statix -- check .
@@ -20,6 +23,7 @@ nix run nixpkgs#deadnix -- .
 
 # Evaluate without building
 nix eval .#homeConfigurations.mxw-dalco01.activationPackage.drvPath
+nix eval .#darwinConfigurations.work.system.drvPath
 ```
 
 ## Architecture
@@ -29,10 +33,14 @@ nix eval .#homeConfigurations.mxw-dalco01.activationPackage.drvPath
 | Host | Platform | Type | Purpose |
 |------|----------|------|---------|
 | `mxw-dalco01` | x86_64-linux | home-manager only | Work Linux workstation (non-NixOS, AD-managed user) |
+| `work` | aarch64-darwin | nix-darwin | Work macOS laptop (determinate nix, nix-homebrew) |
 
 ### Key Dependencies
 
-- **nix-modules** (public) — all HM modules (git, fish, i3, helix, ghostty, etc.) and infra option declarations
+- **nix-modules** (public) — all HM and darwin modules (git, fish, helix, system settings, dock, homebrew, etc.) and infra option declarations
+- **darwin** (nix-darwin) — macOS system management
+- **nix-homebrew** — declarative Homebrew management
+- **determinate** — Determinate Nix settings
 - **nix-secrets** (private) — git signing keys and SSH config via sops-nix
 - **catppuccin** — theming
 - **nixvim** — editor configuration
