@@ -47,7 +47,7 @@ in
         nixvim
         ;
     };
-    file = import ./files.nix { inherit inputs; };
+    file = import ./files.nix { inherit inputs homeDir; };
     username = config.infra.host.user;
     homeDirectory = config.infra.host.homeDir;
   };
