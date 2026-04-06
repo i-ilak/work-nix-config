@@ -45,7 +45,6 @@ in
   home = {
     enableNixpkgsReleaseCheck = false;
     packages = pkgs.callPackage ./packages.nix { inherit inputs; };
-    file = import ./files.nix { };
     stateVersion = "25.05";
   };
 

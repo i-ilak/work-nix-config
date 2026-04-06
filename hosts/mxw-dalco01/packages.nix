@@ -1,16 +1,12 @@
 {
   pkgs,
-  nixvim,
   inputs,
   ...
 }:
 let
+  inherit (inputs) nixvim;
   sharedPackages = import "${inputs.nix-modules}/modules/home-manager/shared_packages.nix" {
-    inherit
-      pkgs
-      nixvim
-      inputs
-      ;
+    inherit pkgs nixvim inputs;
     flakeRoot = inputs.nix-modules;
   };
 

@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (inputs) nixvim;
   inherit (config.infra.host) homeDir;
   secretspath = builtins.toString inputs.nix-secrets;
 in
@@ -40,13 +39,7 @@ in
   nixpkgs.overlays = [ inputs.claude-code.overlays.default ];
 
   home = {
-    packages = import ./packages.nix {
-      inherit
-        inputs
-        pkgs
-        nixvim
-        ;
-    };
+    packages = pkgs.callPackage ./packages.nix { inherit inputs; };
     file = import ./files.nix { inherit inputs homeDir; };
     username = config.infra.host.user;
     homeDirectory = config.infra.host.homeDir;
