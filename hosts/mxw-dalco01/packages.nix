@@ -40,6 +40,7 @@ let
     flameshot
     claude-code
     nodejs_22 # Required by claude-code hooks (spawns node via /bin/sh)
+    nh
     # Needed for fish plugin
     grc
   ];

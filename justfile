@@ -1,10 +1,23 @@
+# Apply configuration locally (auto-detects OS and hostname)
+switch:
+    #!/usr/bin/env bash
+    if [[ "$(uname)" == "Darwin" ]]; then
+        nh darwin switch .
+    else
+        nh home switch .
+    fi
+
 # Apply home-manager configuration for Linux hosts
 hm-switch host="mxw-dalco01":
-    home-manager switch --flake .#{{host}}
+    nh home switch . -c {{host}}
 
 # Apply darwin configuration for macOS hosts
 darwin-switch host="work":
-    darwin-rebuild switch --flake .#{{host}}
+    nh darwin switch . -H {{host}}
+
+# Garbage collect old generations
+clean:
+    nh clean all
 
 # Format all Nix files
 fmt:

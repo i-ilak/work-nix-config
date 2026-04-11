@@ -9,11 +9,15 @@ Work machine Nix configurations, separated from personal infrastructure. Uses st
 ## Commands
 
 ```bash
-# Apply configuration (home-manager switch for Linux hosts)
-home-manager switch --flake .#mxw-dalco01
+# Apply configuration locally (auto-detects OS and hostname via nh)
+just switch
 
-# Apply configuration (darwin-rebuild for macOS hosts)
-darwin-rebuild switch --flake .#work
+# Or explicitly per host type:
+just hm-switch        # home-manager (Linux)
+just darwin-switch    # nix-darwin (macOS)
+
+# Garbage collect old generations
+just clean
 
 # Lint Nix code
 nix run nixpkgs#statix -- check .

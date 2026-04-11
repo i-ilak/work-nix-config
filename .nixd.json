@@ -1,0 +1,13 @@
+{
+  "nixpkgs": {
+    "expr": "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }"
+  },
+  "options": {
+    "darwin": {
+      "expr": "(builtins.getFlake (toString ./.)).darwinConfigurations.work.options"
+    },
+    "home_manager": {
+      "expr": "(builtins.getFlake (toString ./.)).darwinConfigurations.work.options.home-manager.users.type.getSubOptions []"
+    }
+  }
+}
