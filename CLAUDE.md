@@ -4,30 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Work machine Nix configurations, separated from personal infrastructure. Uses standalone home-manager (not NixOS) on company-managed Linux workstations. Reusable modules are consumed from the public [nix-modules](https://github.com/i-ilak/nix-modules) flake input.
+Work macOS nix-darwin configuration, separated from personal infrastructure. Reusable modules are consumed from the public [nix-modules](https://github.com/i-ilak/nix-modules) flake input.
 
 ## Commands
 
 ```bash
-# Apply configuration locally (auto-detects OS and hostname via nh)
+# Apply configuration (auto-detects OS and hostname via nh)
 just switch
 
-# Or explicitly per host type:
-just hm-switch        # home-manager (Linux)
-just darwin-switch    # nix-darwin (macOS)
+# Or explicitly
+just darwin-switch
 
 # Garbage collect old generations
 just clean
 
 # Lint Nix code
-nix run nixpkgs#statix -- check .
+just lint
 
 # Find dead/unused Nix code
-nix run nixpkgs#deadnix -- .
+just deadnix
 
 # Evaluate without building
-nix eval .#homeConfigurations.mxw-dalco01.activationPackage.drvPath
-nix eval .#darwinConfigurations.work.system.drvPath
+just eval-darwin
+
+# Bootstrap a fresh macOS machine
+./bootstrap.sh work
 ```
 
 ## Architecture
@@ -36,32 +37,30 @@ nix eval .#darwinConfigurations.work.system.drvPath
 
 | Host | Platform | Type | Purpose |
 |------|----------|------|---------|
-| `mxw-dalco01` | x86_64-linux | home-manager only | Work Linux workstation (non-NixOS, AD-managed user) |
 | `work` | aarch64-darwin | nix-darwin | Work macOS laptop (determinate nix, nix-homebrew) |
 
 ### Key Dependencies
 
-- **nix-modules** (public) — all HM and darwin modules (git, fish, helix, system settings, dock, homebrew, etc.) and infra option declarations
+- **nix-modules** (public) — all HM and darwin modules (git, fish, helix, ghostty, system settings, dock, homebrew, etc.) and infra option declarations
 - **darwin** (nix-darwin) — macOS system management
 - **nix-homebrew** — declarative Homebrew management
 - **determinate** — Determinate Nix settings
-- **nix-secrets** (private) — git signing keys and SSH config via sops-nix
+- **sops-nix** — secret management (optional, gated behind `secretsPath`)
 - **catppuccin** — theming
 - **nixvim** — editor configuration
 - **claude-code** — nixpkgs overlay for Claude Code package
 
-### Per-Host Structure (`hosts/mxw-dalco01/`)
+### Per-Host Structure (`hosts/work/`)
 
-- `home-manager.nix` — entry point, creates `homeManagerConfiguration`
-- `home.nix` — main config: module imports, sops wiring, git config, packages, dotfiles
+- `nix-darwin.nix` — entry point, creates `darwinSystem`, accepts optional `secretsPath`
+- `macbook.nix` — main darwin config: imports, homebrew, fonts, nix settings
+- `home.nix` — home-manager config: module imports, conditional sops wiring, git config, packages
 - `additional_config_parameters.nix` — sets `infra.host` and `infra.desktop` values
-- `packages.nix` — GUI apps, dev tools, fonts, shared packages from nix-modules
-- `files.nix` — dotfile symlinks (ccache, ideavimrc, vimrc, vscode settings from nix-modules)
+- `packages.nix` — dev tools, shared packages from nix-modules
 
 ### Key Patterns
 
-- Git is wrapped with `LD_PRELOAD` for AD/NSS user ID resolution (`infra.git.useAdWrapper = true`)
-- CLion is similarly wrapped with `LD_PRELOAD` for the same reason
-- Dotfiles and scripts come from nix-modules via `inputs.nix-modules` paths
-- No personal infrastructure values — work email is set directly, not via `personal_values.nix`
-- Secrets (git signing key, SSH config) still come from nix-secrets via sops-nix with age key at `~/.config/sops/age/keys.txt`
+- Secrets are optional: pass `secretsPath = "/path/to/nix-secrets"` in `flake.nix` to enable sops-nix git signing. When `null` (default), the flake evaluates and builds without any secrets setup.
+- No personal infrastructure values — work email is set directly in `home.nix`
+- Fish from nixpkgs-unstable as a workaround for aarch64-darwin code signature bug
+- Modules and shared packages come from nix-modules via `inputs.nix-modules` paths

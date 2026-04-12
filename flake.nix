@@ -45,15 +45,15 @@
     };
     claude-code.url = "github:sadjow/claude-code-nix";
   };
-  outputs =
-    inputs:
-    {
-      darwinConfigurations = {
-        work = import ./hosts/work/nix-darwin.nix {
-          inherit inputs;
-          # Uncomment after setting up nix-secrets and an age key:
-          # secretsPath = "/Users/dev/nix-secrets";
-        };
+  outputs = inputs: {
+    formatter.aarch64-darwin = inputs.nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+
+    darwinConfigurations = {
+      work = import ./hosts/work/nix-darwin.nix {
+        inherit inputs;
+        # Uncomment after setting up nix-secrets and an age key:
+        # secretsPath = "/Users/dev/nix-secrets";
       };
     };
+  };
 }

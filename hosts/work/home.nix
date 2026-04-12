@@ -18,6 +18,7 @@ in
     inputs.nix-modules.homeManagerModules.fish
     inputs.nix-modules.homeManagerModules.direnv
     inputs.nix-modules.homeManagerModules.helix
+    inputs.nix-modules.homeManagerModules.ghostty
     inputs.nix-modules.homeManagerModules.infra-options
   ]
   ++ lib.optionals enableSecrets [
@@ -53,7 +54,7 @@ in
   home = {
     enableNixpkgsReleaseCheck = false;
     packages = pkgs.callPackage ./packages.nix { inherit inputs; };
-    stateVersion = "25.05";
+    stateVersion = "25.11";
   };
 
   catppuccin = {

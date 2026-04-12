@@ -16,11 +16,10 @@ let
       age
       sops
       dockutil
+      docker
       claude-code
       nodejs_22
       nh
-      meslo-lgs-nf
-      nerd-fonts.jetbrains-mono
     ]
     ++ sharedPackages;
 in

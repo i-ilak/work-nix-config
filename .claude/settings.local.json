@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep \"inputs\\\\.\" /Users/dev/work-nix-config/hosts/work/*.nix)",
+      "Bash(grep:*)"
+    ]
+  }
+}

@@ -3,7 +3,13 @@ set -euo pipefail
 
 REPO_URL="https://github.com/i-ilak/work-nix-config.git"
 REPO_DIR="$HOME/work-nix-config"
-FLAKE_ATTR="work"
+
+if [ $# -lt 1 ]; then
+  echo "Usage: bootstrap.sh <flake-attr>" >&2
+  echo "  e.g. bootstrap.sh work" >&2
+  exit 1
+fi
+FLAKE_ATTR="$1"
 
 log()  { printf '\033[1;34m==> %s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33m==> %s\033[0m\n' "$*"; }
@@ -44,8 +50,8 @@ fi
 # --- Phase 3: Clone repository ---
 log "Checking for config repository..."
 # Detect if we're already inside the repo
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/flake.nix" ]; then
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-/dev/null}")" 2>/dev/null && pwd || echo "")"
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/flake.nix" ]; then
   REPO_DIR="$SCRIPT_DIR"
   ok "Running from inside the repository at $REPO_DIR"
 elif [ -d "$REPO_DIR" ] && [ -f "$REPO_DIR/flake.nix" ]; then
@@ -67,41 +73,7 @@ fi
 # --- Phase 5: First nix-darwin switch ---
 log "Running first nix-darwin switch..."
 cd "$REPO_DIR"
-nix run nix-darwin -- switch --flake ".#${FLAKE_ATTR}"
+sudo nix run nix-darwin -- switch --flake ".#${FLAKE_ATTR}"
 
 # --- Done ---
 ok "Bootstrap complete!"
-echo ""
-echo "Your system is configured. To apply future changes:"
-echo "  cd $REPO_DIR && just switch"
-echo ""
-echo "--- Optional: Set up commit signing with sops-nix ---"
-echo ""
-echo "1. Generate an age key:"
-echo "   mkdir -p ~/Library/Application\\ Support/sops/age"
-echo "   age-keygen -o ~/Library/Application\\ Support/sops/age/keys.txt"
-echo ""
-echo "2. Create your nix-secrets directory:"
-echo "   mkdir -p ~/nix-secrets/secrets"
-echo ""
-echo "3. Add your age public key to ~/nix-secrets/.sops.yaml:"
-echo "   keys:"
-echo "     - &work age1YOUR_PUBLIC_KEY_HERE"
-echo "   creation_rules:"
-echo "     - path_regex: secrets/shared\\.yaml\$"
-echo "       key_groups:"
-echo "         - age:"
-echo "             - *work"
-echo ""
-echo "4. Create and encrypt the secrets file:"
-echo "   sops ~/nix-secrets/secrets/shared.yaml"
-echo "   # Add: ssh_git_signing_key:"
-echo "   #        work: ssh-ed25519 AAAA..."
-echo ""
-echo "5. Enable secrets in $REPO_DIR/hosts/work/additional_config_parameters.nix:"
-echo "   local.enableSecrets = true;"
-echo ""
-echo "6. Point nix-secrets to your real secrets and re-apply:"
-echo "   cd $REPO_DIR"
-echo "   nix flake update nix-secrets --override-input nix-secrets path:~/nix-secrets"
-echo "   just switch"
