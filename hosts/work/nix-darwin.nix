@@ -1,12 +1,13 @@
 {
   inputs,
+  secretsPath ? null,
 }:
 let
   flakeRoot = inputs.self;
 in
 inputs.darwin.lib.darwinSystem {
   system = "aarch64-darwin";
-  specialArgs = { inherit inputs flakeRoot; };
+  specialArgs = { inherit inputs flakeRoot secretsPath; };
   modules = [
     inputs.home-manager.darwinModules.home-manager
     inputs.nix-homebrew.darwinModules.nix-homebrew

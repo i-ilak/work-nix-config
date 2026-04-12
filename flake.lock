@@ -477,35 +477,17 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1775511023,
-        "narHash": "sha256-hDfhKyBUWZ/6sd4tYlFQSveTs7OaTJr9WGUSSnK3p9w=",
+        "lastModified": 1776007302,
+        "narHash": "sha256-ULKR6s2E0nBHHoqojugNOvjPzPJ9mWnt3zmO1DgLiBU=",
         "owner": "i-ilak",
         "repo": "nix-modules",
-        "rev": "825f09831b76d1b9dd476d93fc6b0d631e502798",
+        "rev": "cfb25699c295d4521ab9f8ef528af34bd8b1a222",
         "type": "github"
       },
       "original": {
         "owner": "i-ilak",
         "repo": "nix-modules",
         "type": "github"
-      }
-    },
-    "nix-secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1775407386,
-        "narHash": "sha256-m7X8ExQPXlJfLcoSQ0QnMIZEQMrX5ylYo1SkToyCzCQ=",
-        "ref": "main",
-        "rev": "fef019ca2a3043066df226804351f83c70d265bd",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@git.ilak.ch/i-ilak/nix-secrets.git"
-      },
-      "original": {
-        "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@git.ilak.ch/i-ilak/nix-secrets.git"
       }
     },
     "nixpkgs": {
@@ -568,6 +550,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1775710090,
+        "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "4c1018dae018162ec878d42fec712642d214fdfa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -724,8 +722,8 @@
         "homebrew-core": "homebrew-core",
         "nix-homebrew": "nix-homebrew",
         "nix-modules": "nix-modules",
-        "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "sops-nix": "sops-nix"
       }

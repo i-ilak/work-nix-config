@@ -1,9 +1,9 @@
 _: {
   infra.host = {
-    user = "iilak";
-    homeDir = "/Users/iilak";
+    user = "dev";
+    homeDir = "/Users/dev";
     hostname = "work";
-    sshAuthSock = "/Users/iilak/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock";
+    sshAuthSock = "/Users/dev/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock";
   };
   infra.desktop.fontSize = 13;
 }

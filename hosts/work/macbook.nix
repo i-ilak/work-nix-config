@@ -1,7 +1,9 @@
 {
   pkgs,
+  lib,
   inputs,
   config,
+  secretsPath,
   ...
 }:
 let
@@ -24,7 +26,9 @@ in
         pkgs
         inputs
         config
+        secretsPath
         ;
+      inherit (pkgs) lib;
     };
   };
 
@@ -38,7 +42,24 @@ in
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ inputs.claude-code.overlays.default ];
+    overlays = [
+      inputs.claude-code.overlays.default
+      # fish from nixos-25.11 ships with a corrupted ad-hoc code signature on
+      # aarch64-darwin (`codesign --verify` reports "code or signature have
+      # been modified"); macOS SIGKILLs the binary on launch. Pull fish from
+      # nixos-unstable as a workaround.
+      (final: _: {
+        inherit
+          (
+            (import inputs.nixpkgs-unstable {
+              inherit (final.stdenv.hostPlatform) system;
+              config.allowUnfree = true;
+            })
+          )
+          fish
+          ;
+      })
+    ];
   };
 
   determinateNix = {
