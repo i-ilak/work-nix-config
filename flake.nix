@@ -46,7 +46,7 @@
     claude-code.url = "github:sadjow/claude-code-nix";
   };
   outputs = inputs: {
-    formatter.aarch64-darwin = inputs.nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+    formatter.aarch64-darwin = inputs.nixpkgs.legacyPackages.aarch64-darwin.nixfmt-tree;
 
     darwinConfigurations = {
       work = import ./hosts/work/nix-darwin.nix {
