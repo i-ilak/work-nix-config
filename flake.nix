@@ -28,11 +28,11 @@
     };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     nix-modules = {
-      url = "github:i-ilak/nix-modules";
+      url = "git+https://tangled.org/ilak.ch/nix-modules?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:i-ilak/nixvim-config/stable";
+      url = "git+https://tangled.org/ilak.ch/nixvim-config?ref=stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {

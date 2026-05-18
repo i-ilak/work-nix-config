@@ -495,17 +495,18 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1776007302,
-        "narHash": "sha256-ULKR6s2E0nBHHoqojugNOvjPzPJ9mWnt3zmO1DgLiBU=",
-        "owner": "i-ilak",
-        "repo": "nix-modules",
-        "rev": "cfb25699c295d4521ab9f8ef528af34bd8b1a222",
-        "type": "github"
+        "lastModified": 1776360986,
+        "narHash": "sha256-mviQxowMxaz+Jc02ZR6ThXhTxQGrF4TCY+59YTxqhHY=",
+        "ref": "main",
+        "rev": "ee9560da343e9d4ae42cf989ad2421853d755f13",
+        "revCount": 21,
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nix-modules"
       },
       "original": {
-        "owner": "i-ilak",
-        "repo": "nix-modules",
-        "type": "github"
+        "ref": "main",
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nix-modules"
       }
     },
     "nix-modules_2": {
@@ -518,17 +519,18 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1775914080,
-        "narHash": "sha256-/tEtPsRwONDyc/1BUnPEWvg53G1VfQsBKrPjRr27yT4=",
-        "owner": "i-ilak",
-        "repo": "nix-modules",
-        "rev": "bb96f69ba810f91534a8a7383c07a682466d360b",
-        "type": "github"
+        "lastModified": 1776360986,
+        "narHash": "sha256-mviQxowMxaz+Jc02ZR6ThXhTxQGrF4TCY+59YTxqhHY=",
+        "ref": "main",
+        "rev": "ee9560da343e9d4ae42cf989ad2421853d755f13",
+        "revCount": 21,
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nix-modules"
       },
       "original": {
-        "owner": "i-ilak",
-        "repo": "nix-modules",
-        "type": "github"
+        "ref": "main",
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nix-modules"
       }
     },
     "nixpkgs": {
@@ -683,18 +685,18 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1775914126,
-        "narHash": "sha256-I0F6OfhhCgcRIpWjGOc04np4F1c5NYPadiIIZLRYU8U=",
-        "owner": "i-ilak",
-        "repo": "nixvim-config",
-        "rev": "18cb16e7158a21cf0fa10cd794b34c156754601a",
-        "type": "github"
+        "lastModified": 1779111945,
+        "narHash": "sha256-jF8K124DzovbX+FMJeb0FCiVBuBonD0pvTPIIB+6DVs=",
+        "ref": "stable",
+        "rev": "bf526c24812e0d459bac771d7a84c942d7ddd65a",
+        "revCount": 39,
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nixvim-config"
       },
       "original": {
-        "owner": "i-ilak",
         "ref": "stable",
-        "repo": "nixvim-config",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/ilak.ch/nixvim-config"
       }
     },
     "nixvim_2": {
