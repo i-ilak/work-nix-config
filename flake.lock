@@ -495,11 +495,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1776360986,
-        "narHash": "sha256-mviQxowMxaz+Jc02ZR6ThXhTxQGrF4TCY+59YTxqhHY=",
+        "lastModified": 1779283574,
+        "narHash": "sha256-uTVmLkBIWaMRyeKzCU+fh3p8wCCDqel6fQIJsXEsfcg=",
         "ref": "main",
-        "rev": "ee9560da343e9d4ae42cf989ad2421853d755f13",
-        "revCount": 21,
+        "rev": "2adcdf8851123c29afcdbd3b225d084948965c37",
+        "revCount": 27,
         "type": "git",
         "url": "https://tangled.org/ilak.ch/nix-modules"
       },
