@@ -33,12 +33,15 @@ in
     }
   ]
   ++ [
-    {
-      infra.git = {
-        userName = "Ivan Ilak";
-        userEmail = "ivan.ilak@mxwbio.com";
-      };
-    }
+    (
+      { config, ... }:
+      {
+        infra.git = {
+          userName = "Ivan Ilak";
+          userEmail = config.infra.emails.work;
+        };
+      }
+    )
   ];
 
   home = {
