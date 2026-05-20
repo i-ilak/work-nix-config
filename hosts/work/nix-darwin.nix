@@ -11,8 +11,7 @@ inputs.darwin.lib.darwinSystem {
     inputs.determinate.darwinModules.default
     inputs.nix-modules.darwinModules.nix-homebrew-base
     (
-      { ... }:
-      {
+      _: {
         infra.nixHomebrew = {
           enable = true;
           taps = {

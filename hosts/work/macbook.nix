@@ -17,7 +17,7 @@ in
     inputs.nix-modules.darwinModules.infra-options
     inputs.nix-modules.darwinModules.homebrew
     inputs.nix-modules.darwinModules.dock
-    (inputs.nix-modules.darwinModules.fish-unstable { nixpkgs-unstable = inputs.nixpkgs-unstable; })
+    (inputs.nix-modules.darwinModules.fish-unstable { inherit (inputs) nixpkgs-unstable; })
   ];
 
   environment.systemPackages = import "${inputs.nix-modules}/modules/shared/system_packages.nix" {
