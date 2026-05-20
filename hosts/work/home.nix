@@ -23,24 +23,14 @@ in
   ]
   ++ lib.optionals enableSecrets [
     inputs.sops-nix.homeManagerModules.sops
-    (
-      { config, ... }:
-      {
-        infra.git = {
-          signingKeyPath = config.sops.secrets."ssh_git_signing_key/work".path;
-          allowedSignersFile = config.sops.templates."allowed_signers".path;
-        };
-
-        sops = {
-          defaultSopsFile = "${secretsPath}/secrets/shared.yaml";
-          age.keyFile = "${config.infra.host.homeDir}/Library/Application Support/sops/age/keys.txt";
-          secrets."ssh_git_signing_key/work" = { };
-          templates."allowed_signers".content = ''
-            * ${config.sops.placeholder."ssh_git_signing_key/work"}
-          '';
-        };
-      }
-    )
+    inputs.nix-modules.homeManagerModules.git-sops-signing
+    {
+      infra.gitSopsSigning = {
+        enable = true;
+        sopsFile = "${secretsPath}/secrets/shared.yaml";
+        secretName = "ssh_git_signing_key/work";
+      };
+    }
   ]
   ++ [
     {

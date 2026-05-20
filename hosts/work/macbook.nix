@@ -15,6 +15,7 @@ in
     inputs.nix-modules.darwinModules.infra-options
     inputs.nix-modules.darwinModules.homebrew
     inputs.nix-modules.darwinModules.dock
+    (inputs.nix-modules.darwinModules.fish-unstable { nixpkgs-unstable = inputs.nixpkgs-unstable; })
   ];
 
   ids.gids.nixbld = 350;
@@ -40,25 +41,12 @@ in
     shell = pkgs.fish;
   };
 
+  infra.fishUnstable.enable = true;
+
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
       inputs.claude-code.overlays.default
-      # fish from nixos-25.11 ships with a corrupted ad-hoc code signature on
-      # aarch64-darwin (`codesign --verify` reports "code or signature have
-      # been modified"); macOS SIGKILLs the binary on launch. Pull fish from
-      # nixos-unstable as a workaround.
-      (final: _: {
-        inherit
-          (
-            (import inputs.nixpkgs-unstable {
-              inherit (final.stdenv.hostPlatform) system;
-              config.allowUnfree = true;
-            })
-          )
-          fish
-          ;
-      })
     ];
   };
 
